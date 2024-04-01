@@ -131,3 +131,38 @@ export async function addReplyToPost(
         throw new Error(`Error in replying to post: ${error.message}`);
     }
 }
+
+async function fetchThread(id: string): Promise<any[]> {
+    const childPosts = await Post.find({ parentId: id });
+
+    const thread = []
+    for (const post of childPosts) {
+        const replies = await fetchThread(post._id);
+        thread.push(post, ...replies);
+    }
+    return thread;
+}
+
+
+export async function removePost(id: string, path: string) {
+    try {
+        connectToDb();
+        const mainPost = await Post.findById(id).populate("author community");
+        if (!mainPost) {
+            throw new Error("Post not found");
+        }
+        const threads = await fetchThread(id);
+
+        const threadReplyIds = [
+            id,
+            ...threads.map((thread) => thread._id)
+        ];
+
+        const uniqueAuthorIds = new Set(
+            ...threads.map((thread) => thread.author?._id?.toString())
+        )
+
+    } catch (error: any) { 
+        throw new Error(`Error in deleting the post: ${error.message}`);
+    }
+}
