@@ -5,6 +5,7 @@ import Post from "../models/post.model";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import { connect } from "http2";
+import Community from "../models/community.model";
 
 interface Params {
     text: string,
@@ -159,8 +160,32 @@ export async function removePost(id: string, path: string) {
         ];
 
         const uniqueAuthorIds = new Set(
-            ...threads.map((thread) => thread.author?._id?.toString())
-        )
+            [
+                ...threads.map((thread) => thread.author?._id?.toString()),
+                mainPost.author?._id?.toString()
+            ].filter((id) => id != undefined)
+        );
+
+        const uniqueCommunityIds = new Set(
+            [
+                ...threads.map((thread) => thread.community?._id?.toString()),
+                mainPost.community?._id?.toString()
+            ].filter((id) => id != undefined)
+        );
+
+        await Post.deleteMany({ _id: { $in: threadReplyIds }});
+        
+        await User.updateMany(
+            {_id: {$in: Array.from(uniqueAuthorIds)}},
+            {$pull: {threads: {$in: threadReplyIds}}}
+        );
+
+        await Community.updateMany(
+            {_id: {$in: Array.from(uniqueCommunityIds)}},
+            {$pull: {threads: {$in: threadReplyIds}}}
+        );
+
+        revalidatePath(path);
 
     } catch (error: any) { 
         throw new Error(`Error in deleting the post: ${error.message}`);
