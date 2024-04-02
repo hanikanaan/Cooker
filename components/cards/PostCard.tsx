@@ -93,6 +93,15 @@ const PostCard = ({
                                     height={24} 
                                     className="cursor-pointer object-contain"
                                 />
+                                <Link href={`/post/${id}`}>
+                                    <Image 
+                                        src="/assets/threedots.svg" 
+                                        alt="heart" 
+                                        width={24} 
+                                        height={24} 
+                                        className="cursor-pointer object-contain"
+                                    />
+                                </Link>
                             </div>
                             {isComment && comments.length > 0 && (
                                 <Link href={`/post/${id}`}>
