@@ -176,8 +176,8 @@ const AccountProfile = ( {user, btnTitle} : Props ) => {
                             <FormLabel className='text-base-semibold text-light-2'>Bio</FormLabel>
                                 <FormControl>
                                     <Textarea
-                                        rows={10}
-                                        className="account-form_input no-focus" 
+                                        rows={6}
+                                        className="account-form_input no-focus resize-none" 
                                         {...field}
                                     />
                                 </FormControl>

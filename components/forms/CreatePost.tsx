@@ -70,8 +70,10 @@ function CreatePost({ userId } : {userId: string}) {
                             <FormLabel className='text-base-semibold text-light-2'>Content</FormLabel>
                                 <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
                                     <Textarea
-                                        rows={20}
+                                        rows={4}
                                         {...field}
+                                        placeholder="Say what you want to say..."
+                                        className="resize-none"
                                     />
                                 </FormControl>
                             <FormMessage />

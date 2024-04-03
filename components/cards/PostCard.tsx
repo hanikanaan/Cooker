@@ -97,7 +97,7 @@ const PostCard = ({
                                     height={24} 
                                     className="cursor-pointer object-contain"
                                 />
-                                {currentUserId === author.id ? (
+                                { currentUserId === author.id ? (
                                         <RemovePost 
                                             postId={JSON.stringify(id)}
                                             currentUserId={currentUserId}
@@ -106,7 +106,8 @@ const PostCard = ({
                                             isComment={isComment}
                                         />
                                     ) : (
-                                        <></>
+                                        <>
+                                        </>
                                     )
                                 }
                             </div>

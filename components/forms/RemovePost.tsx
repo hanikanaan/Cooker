@@ -22,14 +22,14 @@ function RemovePost({
     const path = usePathname();
     const router = useRouter();
 
-    if (currentUserId !== authorId || path === "/") return null;
+    if (currentUserId !== authorId) return null;
 
     return (
         <Image 
             src='/assets/delete.svg'
             alt='delete'
-            width={18}
-            height={18}
+            width={24}
+            height={24}
             className='cursor-point object-contain'
             onClick={
                 async () => {
