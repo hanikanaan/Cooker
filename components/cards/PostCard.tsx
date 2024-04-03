@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import RemovePost from "../forms/RemovePost";
 
 
 interface Props {
@@ -37,6 +38,7 @@ const PostCard = ({
     comments,
     isComment,
 }: Props) => {
+
     return (
         <article className={`flex w-full flex-col rounded ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2 p-7'}`}>
             <div className="flex items-start justify-between">
@@ -59,7 +61,9 @@ const PostCard = ({
                             <h4 className="cursor-pointer text-base-semibold text-light-1">{author.name}</h4>
                         </Link>
 
-                        <p className="mt-2 text-small-regular text-light-2" style={{whiteSpace: "pre-wrap"}}>{content}</p>
+                        <p className="mt-2 text-small-regular text-light-2" style={{whiteSpace: "pre-wrap"}}>
+                            {content}
+                        </p>
 
                         <div className={`${isComment && 'mb-10'} mt-5 flex flex-col gap-3`}>
                             <div className="flex gap-3.5">
@@ -93,15 +97,18 @@ const PostCard = ({
                                     height={24} 
                                     className="cursor-pointer object-contain"
                                 />
-                                <Link href={`/post/${id}`}>
-                                    <Image 
-                                        src="/assets/threedots.svg" 
-                                        alt="heart" 
-                                        width={24} 
-                                        height={24} 
-                                        className="cursor-pointer object-contain"
-                                    />
-                                </Link>
+                                {currentUserId === author.id ? (
+                                        <RemovePost 
+                                            postId={JSON.stringify(id)}
+                                            currentUserId={currentUserId}
+                                            authorId={author.id}
+                                            parentId={parentId}
+                                            isComment={isComment}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             </div>
                             {isComment && comments.length > 0 && (
                                 <Link href={`/post/${id}`}>
