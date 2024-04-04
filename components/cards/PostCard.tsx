@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import RemovePost from "../forms/RemovePost";
+import Popup from 'reactjs-popup';
 
 
 interface Props {
@@ -78,25 +79,18 @@ const PostCard = ({
                                     <Image 
                                         src="/assets/reply.svg" 
                                         alt="heart" 
-                                        width={24} 
-                                        height={24} 
+                                        width={28} 
+                                        height={28} 
                                         className="cursor-pointer object-contain"
                                     />
                                 </Link>
-                                <Image 
+                                {/* <Image 
                                     src="/assets/repost.svg" 
                                     alt="heart" 
                                     width={24} 
                                     height={24} 
                                     className="cursor-pointer object-contain"
-                                />
-                                <Image 
-                                    src="/assets/share.svg" 
-                                    alt="heart" 
-                                    width={24} 
-                                    height={24} 
-                                    className="cursor-pointer object-contain"
-                                />
+                                /> */}
                                 { currentUserId === author.id ? (
                                         <RemovePost 
                                             postId={JSON.stringify(id)}

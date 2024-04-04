@@ -106,9 +106,9 @@ export async function addReplyToPost(
     userId: string,
     path: string
 ) {
-    connectToDb();
     
     try {
+        connectToDb();
         const originalPost = await Post.findById(postId);
         
         if (!originalPost) { 
@@ -189,5 +189,15 @@ export async function removePost(id: string, path: string) {
 
     } catch (error: any) { 
         throw new Error(`Error in deleting the post: ${error.message}`);
+    }
+}
+
+
+export async function repost(id: string) {
+    try {
+        connectToDb();
+        const post = fetchPostById(id);
+    } catch (error: any) {
+        throw new Error(`Error reposting: ${error.message}`)
     }
 }
