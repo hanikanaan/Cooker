@@ -25,22 +25,23 @@ async function Page() {
                 Search
             </h1>
             <div className="mt-14 flex flex-col gap-9">
-                {res.users.length === 0 ? (
-                    <p className="no-result">No users</p>
-                ) : (
-                    <>
-                        {res.users.map((person) => (
-                            <UserCard 
-                                key={person.id}
-                                id={person.id}
-                                name={person.name}
-                                username={person.username}
-                                imgUrl={person.image}
-                                personType="User"
-                            />
-                        ))}
-                    </>
-                )
+                {
+                    res.users.length === 0 ? (
+                        <p className="no-result">No users</p>
+                    ) : (
+                        <>
+                            {res.users.map((person) => (
+                                <UserCard 
+                                    key={person.id}
+                                    id={person.id}
+                                    name={person.name}
+                                    username={person.username}
+                                    imgUrl={person.image}
+                                    personType="User"
+                                />
+                            ))}
+                        </>
+                    )
                 }
             </div>
         </section>
